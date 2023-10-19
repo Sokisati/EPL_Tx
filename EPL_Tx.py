@@ -3,11 +3,13 @@ import socket
 import time
 import json
 
+
 class GonderilecekVeriler:
-    def __init__(self, takimNo, veriPaketNo, gondermeSaatiVeTarih, basinc, inisHizi, sicaklik, pilGerilimi, gpsLat, gpsLong, gpsAlt, pitch, roll, yaw, donusHizi):
+    def __init__(self, takimNo, veriPaketNo, gondermeSaatiVeTarih, basinc,yukseklik, inisHizi, sicaklik, pilGerilimi, gpsLat, gpsLong, gpsAlt, pitch, roll, yaw, donusHizi):
         self.takimNo = takimNo
         self.veriPaketNo = veriPaketNo
         self.gondermeSaatiVeTarih = gondermeSaatiVeTarih
+        self.yukseklik = yukseklik
         self.basinc = basinc
         self.inisHizi = inisHizi
         self.sicaklik = sicaklik
@@ -39,6 +41,7 @@ try:
             veriPaketNo=veriPaketNo,
             gondermeSaatiVeTarih="2023-10-20 12:00:00",
             basinc=1013.25,
+            yukseklik=420,
             inisHizi=5.0,
             sicaklik=25.0,
             pilGerilimi=12.0,
