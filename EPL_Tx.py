@@ -25,7 +25,7 @@ class GonderilecekVeriler:
         
 
 #buraya baglanilacak pc'nin ip'si girilecek (cmd->ipconfig->ip4)
-pc_ip = '10.45.65.229' 
+pc_ip = '10.45.69.108' 
 
 #bu port degistirilebilir ama kalsin
 port = 12345
