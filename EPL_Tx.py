@@ -3,7 +3,14 @@ import socket
 import time
 import json
 import random
+import numpy as np
 
+def encryption_function(key_vector, value_to_enc, data_packet_id):
+    key_index = data_packet_id % len(key_vector)
+    enc_value = value_to_enc * key_vector[key_index] - key_vector[key_index]
+    return enc_value
+
+key_vector = [16,81,33,32,5,15,13,71,43,8,31,72,4,38,71,19]
 
 class GonderilecekVeriler:
     def __init__(self, takimNo, veriPaketNo, gondermeSaatiVeTarih, basinc,yukseklik, inisHizi, sicaklik, pilGerilimi, gpsLat, gpsLong, gpsAlt, pitch, roll, yaw, donusHizi):
@@ -33,8 +40,19 @@ port = 12345
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 veriPaketNo = 0;
 
-inisHiziV = 5;
-basincV = 101.3;
+basinc = 5
+yukseklik = 8
+inisHizi = 16
+sicaklik = 2
+pilGerilimi = 12
+gpsLat=35.123456
+gpsLong=139.654321
+gpsAlt=100.0
+pitch=0.0
+roll=0.0
+yaw=0.0
+donusHizi=10.0
+
 
 try:
     sock.connect((pc_ip, port))
@@ -47,14 +65,14 @@ try:
             takimNo=31,
             veriPaketNo=veriPaketNo,
             gondermeSaatiVeTarih="2023-10-20 12:00:00",
-            basinc=basincV,
-            yukseklik=round(random.uniform(560,780),2),
-            inisHizi=inisHiziV,
-            sicaklik=round(random.uniform(2,10),2),
-            pilGerilimi=12.0,
-            gpsLat=35.123456,
-            gpsLong=139.654321,
-            gpsAlt=100.0,
+            basinc=encryption_function(key_vector,basinc,veriPaketNo),
+            yukseklik=encryption_function(key_vector,yukseklik,veriPaketNo),
+            inisHizi=encryption_function(key_vector,inisHizi,veriPaketNo),
+            sicaklik=encryption_function(key_vector,sicaklik,veriPaketNo),
+            pilGerilimi=encryption_function(key_vector,pilGerilimi,veriPaketNo),
+            gpsLat=encryption_function(key_vector,gpsLat,veriPaketNo),
+            gpsLong=encryption_function(key_vector,gpsLong,veriPaketNo),
+            gpsAlt=encryption_function(key_vector,gpsAlt,veriPaketNo),
             pitch=0.0,
             roll=0.0,
             yaw=0.0,
@@ -62,13 +80,8 @@ try:
            
         )
         veriPaketNo += 1
-        if inisHiziV <30:
-         inisHiziV = inisHiziV + 1
-         
-         if basincV >97.7:
-          basincV = basincV - round(random.uniform(0.2,0.7),2)
+       
         
-
         data_json = json.dumps(data.__dict__)
 
         sock.send(data_json.encode())
