@@ -25,7 +25,8 @@ class GonderilecekVeriler:
         
 
 #buraya baglanilacak pc'nin ip'si girilecek (cmd->ipconfig->ip4)
-pc_ip = '10.45.69.108' 
+
+pc_ip =pc_ip = socket.gethostbyname(socket.gethostname())
 
 #bu port degistirilebilir ama kalsin
 port = 12345
