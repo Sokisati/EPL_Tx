@@ -10,7 +10,12 @@ def encryption_function(key_vector, value_to_enc, data_packet_id):
     enc_value = value_to_enc * key_vector[key_index] - key_vector[key_index]
     return enc_value
 
+#buradaki anahtar rx ile ayný olmalý
 key_vector = [16,81,33,32,5,15,13,71,43,8,31,72,4,38,71,19]
+
+#TODO: anahtar raspberry pi ve rx'in gerçekleþtiði bilgisayarýn clock degerlerine bakip sene,ay,hafta,gun ve dakikaya gore otomatik olusmalý
+#kritik sey su ki, bahsettigim parametreler her iki bilgisayarda da tam olarak ayný olmali
+
 
 class GonderilecekVeriler:
     def __init__(self, takimNo, veriPaketNo, gondermeSaatiVeTarih, basinc,yukseklik, inisHizi, sicaklik, pilGerilimi, gpsLat, gpsLong, gpsAlt, pitch, roll, yaw, donusHizi):
@@ -31,9 +36,7 @@ class GonderilecekVeriler:
         self.donusHizi = donusHizi
         
 
-#buraya baglanilacak pc'nin ip'si girilecek (cmd->ipconfig->ip4)
-
-pc_ip =pc_ip = socket.gethostbyname(socket.gethostname())
+pc_ip = socket.gethostbyname(socket.gethostname())
 
 #bu port degistirilebilir ama kalsin
 port = 12345
